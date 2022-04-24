@@ -17,13 +17,21 @@ test('determine belonging to the prototype', () => {
 });
 
 test.each([
-  ['bowmanbowman', 'Bowman'],
-  ['b', 'Bowman'],
-  ['bowman', 'bowman'],
-])('checking for an exception', (name, type) => {
+  ['bowmanbowman'],
+  ['b'],
+  [43],
+])('checking for an exception1', (name) => {
   function wrapper() {
-    new Character(name, type);
+    new Character(name, 'Bowman');
   }
 
-  expect(wrapper).toThrowError(/^Ошибка$/);
+  expect(wrapper).toThrowError(/^Переменная name не может иметь такого значения$/);
+});
+
+test('checking for an exception2', () => {
+  function wrapper() {
+    new Character('bowman', 'bowman');
+  }
+
+  expect(wrapper).toThrowError(/^Переменная type не может иметь такого значения$/);
 });
